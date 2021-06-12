@@ -1,7 +1,6 @@
 [gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://assets/sprites/under_health_bar_turret.png" type="Texture" id=1]
-[ext_resource path="res://objects/enemies/BasicEnemy.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scenes/Game.gd" type="Script" id=3]
 [ext_resource path="res://objects/Player.tscn" type="PackedScene" id=4]
 [ext_resource path="res://assets/sprites/health_bar_turret.png" type="Texture" id=5]
@@ -11,6 +10,7 @@
 [ext_resource path="res://assets/sprites/over_health_bar_turret.png" type="Texture" id=9]
 [ext_resource path="res://assets/sprites/under_health_bar.png" type="Texture" id=10]
 [ext_resource path="res://assets/sprites/progress_health_bar.png" type="Texture" id=11]
+[ext_resource path="res://objects/EnemyWaveManager.tscn" type="PackedScene" id=12]
 
 [sub_resource type="Gradient" id=1]
 offsets = PoolRealArray( 0.261745, 0.959732, 1 )
@@ -38,9 +38,6 @@ color_ramp = SubResource( 1 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
 current = true
-
-[node name="BasicEnemy" parent="." instance=ExtResource( 2 )]
-position = Vector2( 354.196, -89.3281 )
 
 [node name="Control" type="Control" parent="."]
 margin_left = -512.0
@@ -96,3 +93,6 @@ texture_progress = ExtResource( 6 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="EnemyWaveManager" parent="." instance=ExtResource( 12 )]
+waves = [ 0 ]
