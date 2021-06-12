@@ -16,6 +16,7 @@ func _ready() -> void:
 
 func load_file(file_name: String) -> void:
 	print("Load ", file_name)
+	LevelManager.load_level(0)
 	# Call level manager to load specific level, and also save file
 	# contents to global variable.
 
