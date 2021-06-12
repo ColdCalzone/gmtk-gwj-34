@@ -18,8 +18,3 @@ func load_level(level_num: int) -> void:
 	get_tree().change_scene_to(scene)
 	
 	# Set up parallax background stuff later, after gmtk
-
-
-
-func set_pause(pause: bool) -> void:
-	get_tree().current_scene.paused = pause
