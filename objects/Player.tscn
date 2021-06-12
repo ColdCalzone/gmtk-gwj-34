@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://icon.png" type="Texture" id=1]
+[ext_resource path="res://assets/sprites/ship.png" type="Texture" id=1]
 [ext_resource path="res://objects/Player.gd" type="Script" id=2]
 [ext_resource path="res://objects/Turret.tscn" type="PackedScene" id=3]
 
@@ -8,14 +8,18 @@
 extents = Vector2( 32, 32 )
 
 [node name="Player" type="KinematicBody2D"]
+collision_layer = 9
 collision_mask = 0
 script = ExtResource( 2 )
 
 [node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 0, 16 )
+scale = Vector2( 4, 4 )
 texture = ExtResource( 1 )
+hframes = 3
 
 [node name="Turret" parent="." instance=ExtResource( 3 )]
-position = Vector2( 0, 64 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( -2, 0 )
 shape = SubResource( 1 )
