@@ -16,7 +16,8 @@ func _physics_process(delta : float) -> void:
 	
 	var collision = move_and_collide(Vector2.UP.rotated(rotation) * speed * delta)
 	if collision:
-		collision.get_collider().health -= damage
+		collision.get_collider().damage(damage)
+		kill()
 
 func kill():
 	queue_free()

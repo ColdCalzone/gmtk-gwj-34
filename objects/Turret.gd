@@ -9,6 +9,7 @@ var frame : float = 0.0
 export(float) var rotation_speed : float = 4
 
 export(int) var health : int = 80
+export(int) var max_health : int = 80
 
 onready var tween = $Tween
 onready var sprite = $Sprite
@@ -31,6 +32,19 @@ func damage(amount : int):
 	health -= amount
 
 func _physics_process(delta):
+	print("Turret: ", health)
+	var closest_enemy_pos : Vector2 = Vector2.ZERO
+	for enemy in get_tree().get_nodes_in_group("Enemy"):
+		if global_position.distance_to(enemy.global_position) < global_position.distance_to(closest_enemy_pos) or closest_enemy_pos == Vector2.ZERO:
+			closest_enemy_pos = enemy.global_position
+	
+	var angle = position.angle_to_point(closest_enemy_pos) - 1.57
+	rotation = lerp_angle(rotation, angle, 0.15)# * delta
+	rotation += (Input.get_action_strength("aim_right") - Input.get_action_strength("aim_left")) * rotation_speed * delta
+	angle = wrapf(angle, 0, 6.28)
+	rotation = wrapf(rotation, 0, 6.28)
+	
+	
 	if Input.is_action_pressed("shooty"):
 		if timer.is_stopped():
 			timer.start()

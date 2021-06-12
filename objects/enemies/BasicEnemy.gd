@@ -1,8 +1,11 @@
 extends KinematicBody2D
 
-export var speed : float = 350
+onready var health_pack = preload("res://objects/HealthPack.tscn").instance()
 
-export var health : int = 1
+export var speed : float = 0
+
+export var health : int = 2
+export var max_health : int = 200
 
 export var damage : int = 1
 
@@ -21,7 +24,11 @@ var targeting_time : float = 0.0
 func _ready():
 	pass
 
+func damage(amount : int):
+	health -= amount
+
 func _physics_process(delta : float) -> void:
+	print("Enemy: ", health)
 	if target == null:
 		target = get_target()
 	else:
@@ -30,6 +37,8 @@ func _physics_process(delta : float) -> void:
 		if collision:
 			collision.get_collider().damage(damage)
 	if health <= 0:
+		health_pack.global_position = global_position
+		get_parent().add_child(health_pack)
 		queue_free()
 
 func _process(delta):

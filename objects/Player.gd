@@ -1,8 +1,11 @@
 extends KinematicBody2D
 
+class_name Player
+
 export var speed : float = 400
 
 export var health : int = 20
+export var max_health : int = 20
 
 onready var turrets = get_tree().get_nodes_in_group("Turret")
 
@@ -24,6 +27,7 @@ func damage(amount : int):
 	health -= amount
 
 func _physics_process(delta : float) -> void:
+	print("Player: ", health)
 	var direction = Vector2.ZERO
 	if Input.is_action_pressed("move_right") : direction.x += 1
 	if Input.is_action_pressed("move_left") : direction.x -= 1
@@ -33,7 +37,7 @@ func _physics_process(delta : float) -> void:
 	
 	# poggera
 	for turret in turrets:
-		turret.rotation -= delta * (Input.get_action_strength("aim_left") - Input.get_action_strength("aim_right")) * turret.rotation_speed
+		#turret.rotation -= delta * (Input.get_action_strength("aim_left") - Input.get_action_strength("aim_right")) * turret.rotation_speed
 		#turret.rotation = clamp(turret.rotation, -0.79, 0.79)
 	
 		if turret.global_position.distance_to(global_position) > 100:
