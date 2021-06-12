@@ -26,9 +26,9 @@ config/icon="res://icon.png"
 
 [autoload]
 
-LevelManager="*res://singetons/LevelManager.tscn"
-PauseMenu="*res://ui/PauseMenu.tscn"
-SoundManager="*res://singetons/SoundManager.tscn"
+LevelManager="*res://singletons/LevelManager.tscn"
+PauseMenu="*res://ui/PauseMenu.gd"
+SoundManager="*res://singletons/SoundManager.tscn"
 
 [display]
 
