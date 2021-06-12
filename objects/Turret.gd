@@ -32,10 +32,14 @@ func damage(amount : int):
 
 func _physics_process(delta):
 	if Input.is_action_pressed("shooty"):
-		shoot()
+		if timer.is_stopped():
+			timer.start()
+			shoot()
+	else:
+		timer.stop()
 
 func _process(delta : float) :
-	frame += delta * (ANIMATION_SPEED/timer.wait_time)
+	frame += delta * (ANIMATION_SPEED)
 	if frame > 5.0: frame = 0.0
 	sprite.frame = int(frame)
 
