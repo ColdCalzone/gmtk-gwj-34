@@ -3,7 +3,7 @@ extends Node2D
 
 var levels := {
 	0: {
-		"scene": preload("res://scenes/Test.tscn"),
+		"scene": preload("res://scenes/Game.tscn"),
 		"background": preload("res://icon.png"),
 		"music": ""
 	}
