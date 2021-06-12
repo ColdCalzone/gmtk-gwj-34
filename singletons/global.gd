@@ -3,6 +3,7 @@ extends Node
 
 var save := {}
 var save_file := ""
+var subscribers := []
 
 signal on_save
 signal on_load
@@ -19,7 +20,15 @@ func get_data(data):
 
 
 
+func subscribe(subscriber: Object):
+	subscribers.append(subscriber)
+
+
+
 func save_to_file() -> void:
+	for subscriber in subscribers:
+		subscriber.call("_save_data")
+	
 	var file := File.new()
 	
 	file.open(save_file, File.WRITE)
