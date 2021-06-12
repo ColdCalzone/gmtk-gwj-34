@@ -7,18 +7,22 @@
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 32, 32 )
 
-[node name="Player" type="KinematicBody2D"]
-collision_layer = 9
+[node name="Player" type="KinematicBody2D" groups=[
+"Player",
+]]
 collision_mask = 0
 script = ExtResource( 2 )
 
 [node name="Sprite" type="Sprite" parent="."]
-position = Vector2( 0, 16 )
 scale = Vector2( 4, 4 )
 texture = ExtResource( 1 )
+offset = Vector2( 0, 4 )
 hframes = 3
 
-[node name="Turret" parent="." instance=ExtResource( 3 )]
+[node name="Turret" parent="." groups=[
+"Player",
+] instance=ExtResource( 3 )]
+position = Vector2( 0, 120 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( -2, 0 )

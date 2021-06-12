@@ -6,6 +6,11 @@ export(bool) var is_player = true setget set_collision
 const ANIMATION_SPEED = 5
 var frame : float = 0.0
 
+export(float) var rotation_speed : float = 4
+
+export(int) var health : int = 80
+export(int) var max_health : int = 80
+
 onready var tween = $Tween
 onready var sprite = $Sprite
 onready var timer = $Timer
@@ -15,26 +20,40 @@ func set_collision(value : bool):
 	is_player = value
 	if !is_player:
 		# Tell the bullet to hit players and turrets
-		bullet.collision_mask = 1
+		bullet.set_collision_mask_bit(0, true)
 	else:
 		# Or to hit enemies
-		bullet.collision_mask = 2
+		bullet.set_collision_mask_bit(1, true)
 
-func _ready():
-	bullet.damage = 10
-	bullet.speed = 700
-	rotation_degrees = 90
-	timer.connect("timeout", self, "shoot")
+#func _ready():
+	#timer.connect("timeout", self, "shoot")
 
-#func _physics_process(delta):
-	#print(global_position.distance_to(parent.global_position))
-	#if global_position.distance_to(parent.global_position) > 160.0:
-		#global_position = ((global_position - parent.position).normalized() * 120)
-	#else:
-		#global_position = -((global_position - parent.position).normalized() * 120)
+func damage(amount : int):
+	health -= amount
+
+func _physics_process(delta):
+	print("Turret: ", health)
+	var closest_enemy_pos : Vector2 = Vector2.ZERO
+	for enemy in get_tree().get_nodes_in_group("Enemy"):
+		if global_position.distance_to(enemy.global_position) < global_position.distance_to(closest_enemy_pos) or closest_enemy_pos == Vector2.ZERO:
+			closest_enemy_pos = enemy.global_position
+	
+	var angle = position.angle_to_point(closest_enemy_pos) - 1.57
+	rotation = lerp_angle(rotation, angle, 0.15)# * delta
+	rotation += (Input.get_action_strength("aim_right") - Input.get_action_strength("aim_left")) * rotation_speed * delta
+	angle = wrapf(angle, 0, 6.28)
+	rotation = wrapf(rotation, 0, 6.28)
+	
+	
+	if Input.is_action_pressed("shooty"):
+		if timer.is_stopped():
+			timer.start()
+			shoot()
+	else:
+		timer.stop()
 
 func _process(delta : float) :
-	frame += delta * (ANIMATION_SPEED/timer.wait_time)
+	frame += delta * (ANIMATION_SPEED)
 	if frame > 5.0: frame = 0.0
 	sprite.frame = int(frame)
 
