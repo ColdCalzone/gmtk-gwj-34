@@ -1,6 +1,17 @@
 extends Node
 
 
+# Subscription system requires a bit of an explanation -
+# Basically, something (anything!) calls Global.subscribe(), and passes
+# itself in as the sole argument. This "subscribes" them, meaning you must
+# now create a function called "_save_data()", where you use Global.set_data()
+# to save whatever you want to be saved.
+#
+# If this all sounds confusing, contact me on discord and I'll try to explain
+# it better.
+# - Isaac/R.png
+
+
 var save := {}
 var save_file := ""
 var subscribers := []
@@ -10,7 +21,7 @@ signal on_load
 
 
 
-func set_data(data, value) -> void:
+func set_data(data: String, value) -> void:
 	save[data] = value
 
 
