@@ -14,6 +14,10 @@ config/name="GMTK+GWJ-34"
 run/main_scene="res://scenes/Test.tscn"
 config/icon="res://icon.png"
 
+[autoload]
+
+LevelManager="*res://singetons/LevelManager.tscn"
+
 [display]
 
 window/size/resizable=false
