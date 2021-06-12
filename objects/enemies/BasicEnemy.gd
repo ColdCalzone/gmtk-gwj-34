@@ -2,7 +2,7 @@ extends KinematicBody2D
 
 onready var health_pack = preload("res://objects/HealthPack.tscn").instance()
 
-export var speed : float = 0
+export var speed : float = 375
 
 export var health : int = 2
 export var max_health : int = 200
@@ -53,7 +53,7 @@ func _process(delta):
 			frame -= delta * ANIMATION_SPEED
 		STATE.LOCKING:
 			frame = max(frame, 4.0)
-			frame += delta * ANIMATION_SPEED
+			frame += (delta/2) * ANIMATION_SPEED
 			if frame >= 8:
 				state = STATE.LOCKED
 		STATE.LOCKED:
@@ -76,8 +76,8 @@ func calculate_movement(x : float, y : float, delta : float) -> Vector2:
 	var angle = position.angle_to_point(target.position) - 1.57
 	rotation = lerp_angle(rotation, angle, 0.03)
 	if targeting_time > 1:
+		state = STATE.LOCKED
 		return Vector2.UP.rotated(rotation) * speed * delta
 	else:
-		state = STATE.LOCKED
 		return Vector2.UP.rotated(rotation) * -speed / 3 * delta
 	return Vector2.ZERO
