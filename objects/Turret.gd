@@ -6,6 +6,10 @@ export(bool) var is_player = true setget set_collision
 const ANIMATION_SPEED = 5
 var frame : float = 0.0
 
+export(float) var rotation_speed : float = 4
+
+export(int) var health : int = 80
+
 onready var tween = $Tween
 onready var sprite = $Sprite
 onready var timer = $Timer
@@ -15,23 +19,20 @@ func set_collision(value : bool):
 	is_player = value
 	if !is_player:
 		# Tell the bullet to hit players and turrets
-		bullet.collision_mask = 1
+		bullet.set_collision_mask_bit(0, true)
 	else:
 		# Or to hit enemies
-		bullet.collision_mask = 2
+		bullet.set_collision_mask_bit(1, true)
 
-func _ready():
-	bullet.damage = 10
-	bullet.speed = 700
-	rotation_degrees = 90
-	timer.connect("timeout", self, "shoot")
+#func _ready():
+	#timer.connect("timeout", self, "shoot")
 
-#func _physics_process(delta):
-	#print(global_position.distance_to(parent.global_position))
-	#if global_position.distance_to(parent.global_position) > 160.0:
-		#global_position = ((global_position - parent.position).normalized() * 120)
-	#else:
-		#global_position = -((global_position - parent.position).normalized() * 120)
+func damage(amount : int):
+	health -= amount
+
+func _physics_process(delta):
+	if Input.is_action_pressed("shooty"):
+		shoot()
 
 func _process(delta : float) :
 	frame += delta * (ANIMATION_SPEED/timer.wait_time)
