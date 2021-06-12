@@ -12,6 +12,7 @@ onready var pause_back := $PauseBack
 
 func open_menu() -> void:
 	show()
+	LevelManager.set_pause(true)
 	
 	tween.interpolate_property(pause_back, "modulate:a", 0.0, 1.0, 0.2)
 	tween.interpolate_property(left_panel, "modulate:a", 0.0, 1.0, 0.4)
@@ -29,6 +30,7 @@ func close_menu() -> void:
 	yield(tween, "tween_all_completed")
 	
 	hide()
+	LevelManager.set_pause(false)
 
 
 
