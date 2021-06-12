@@ -1,18 +1,19 @@
-extends Control
+extends CanvasLayer
 
 
-onready var tween := $GeneralTween
-onready var main_container := $LeftPanel/MainContainer
-onready var popups := $Popups
-onready var options_container := $Popups/OptionsContainer
-onready var left_panel := $LeftPanel
-onready var pause_back := $PauseBack
+onready var pause_container := $PauseContainer
+onready var tween := $PauseContainer/GeneralTween
+onready var main_container := $PauseContainer/LeftPanel/MainContainer
+onready var popups := $PauseContainer/Popups
+onready var options_container := $PauseContainer/Popups/OptionsContainer
+onready var left_panel := $PauseContainer/LeftPanel
+onready var pause_back := $PauseContainer/PauseBack
 
 
 
 func open_menu() -> void:
-	show()
-	LevelManager.set_pause(true)
+	pause_container.show()
+	get_tree().paused = true
 	
 	tween.interpolate_property(pause_back, "modulate:a", 0.0, 1.0, 0.2)
 	tween.interpolate_property(left_panel, "modulate:a", 0.0, 1.0, 0.4)
@@ -29,8 +30,8 @@ func close_menu() -> void:
 	
 	yield(tween, "tween_all_completed")
 	
-	hide()
-	LevelManager.set_pause(false)
+	pause_container.hide()
+	get_tree().paused = false
 
 
 
