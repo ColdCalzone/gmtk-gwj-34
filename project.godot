@@ -29,6 +29,7 @@ config/icon="res://icon.png"
 LevelManager="*res://singletons/LevelManager.tscn"
 PauseMenu="*res://ui/PauseMenu.tscn"
 SoundManager="*res://singletons/SoundManager.tscn"
+Global="*res://singletons/global.gd"
 
 [display]
 
