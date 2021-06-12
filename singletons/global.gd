@@ -26,6 +26,8 @@ func save_to_file() -> void:
 	
 	file.store_string(str(save))
 	file.close()
+	
+	emit_signal("on_save")
 
 
 
@@ -40,3 +42,5 @@ func load_from_file(path: String) -> void:
 	
 	save = JSON.parse(content).result
 	save_file = path
+	
+	emit_signal("on_load")
