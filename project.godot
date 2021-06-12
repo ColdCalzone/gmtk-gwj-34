@@ -8,16 +8,6 @@
 
 config_version=4
 
-_global_script_classes=[ {
-"base": "KinematicBody2D",
-"class": "Player",
-"language": "GDScript",
-"path": "res://objects/Player.gd"
-} ]
-_global_script_class_icons={
-"Player": ""
-}
-
 [application]
 
 config/name="GMTK+GWJ-34"
@@ -27,6 +17,7 @@ config/icon="res://icon.png"
 [autoload]
 
 LevelManager="*res://singetons/LevelManager.tscn"
+SoundManager="*res://singetons/SoundManager.gd"
 
 [display]
 
