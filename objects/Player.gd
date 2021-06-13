@@ -34,7 +34,7 @@ func _physics_process(delta : float) -> void:
 		sprite.modulate.a = 0.3
 		set_collision_layer_bit(0, false)
 		for turret in turrets:
-			set_collision_layer_bit(0, false)
+			turret.set_collision_layer_bit(0, false)
 			turret.sprite.modulate.a = 0.3
 		invulnerable = true
 	elif invulnerable:
