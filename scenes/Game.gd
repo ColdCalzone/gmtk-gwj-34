@@ -22,3 +22,5 @@ func _physics_process(delta):
 	turrets_health.value = 0
 	for turret in turrets:
 		turrets_health.value += turret.health
+	if Input.is_action_just_pressed("pause"):
+		PauseMenu.open_menu()

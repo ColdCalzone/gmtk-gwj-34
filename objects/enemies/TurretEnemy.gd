@@ -76,5 +76,4 @@ func calculate_movement(delta : float) -> Vector2:
 #	for enemy in get_tree().get_nodes_in_group("Enemy"):
 #		if enemy.global_position.distance_to(position) < 100:
 #			movement += ((((enemy.global_position - global_position).normalized() * 120) + global_position) * delta).rotated(-angle)
-	print(movement)
 	return movement

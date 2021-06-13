@@ -9,6 +9,10 @@ onready var options_container := $PauseContainer/Popups/OptionsContainer
 onready var left_panel := $PauseContainer/LeftPanel
 onready var pause_back := $PauseContainer/PauseBack
 
+func _physics_process(delta):
+	if !tween.is_active() and get_tree().paused:
+		if Input.is_action_just_pressed("pause"):
+			close_menu()
 
 
 func open_menu() -> void:
