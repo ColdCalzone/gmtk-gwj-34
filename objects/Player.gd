@@ -27,7 +27,6 @@ func damage(amount : int):
 	health -= amount
 
 func _physics_process(delta : float) -> void:
-	print("Player: ", health)
 	var direction = Vector2.ZERO
 	if Input.is_action_pressed("move_right") : direction.x += 1
 	if Input.is_action_pressed("move_left") : direction.x -= 1
@@ -42,7 +41,10 @@ func _physics_process(delta : float) -> void:
 	
 		if turret.global_position.distance_to(global_position) > 100:
 			turret.global_position = ((turret.global_position - global_position).normalized() * 120) + global_position
-			
+		for other_turret in turrets:
+			if other_turret == turret: continue
+			if other_turret.global_position.distance_to(turret.global_position) < 100:
+				other_turret.global_position += (((other_turret.global_position - turret.global_position).normalized() * 120) + turret.global_position) * delta
 	
 
 func _process(delta) -> void:

@@ -7,7 +7,8 @@ export(Array, WaveTypes) var waves
 
 var wave_number := 0
 var enemy := {
-	"basic": preload("res://objects/enemies/BasicEnemy.tscn")
+	"basic": preload("res://objects/enemies/BasicEnemy.tscn"),
+	"turret": preload("res://objects/enemies/TurretEnemy.tscn")
 }
 var enemies := []
 
@@ -19,8 +20,8 @@ signal all_waves_complete
 func run_wave() -> void:
 	match waves[wave_number]:
 		WaveTypes.BASIC:
-			spawn_enemy(enemy.basic, Vector2(-200, -300))
-			spawn_enemy(enemy.basic, Vector2(200, -300))
+			spawn_enemy(enemy.turret, Vector2(-200, -50))
+			spawn_enemy(enemy.turret, Vector2(200, -50))
 
 
 
