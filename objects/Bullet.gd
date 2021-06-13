@@ -6,7 +6,6 @@ export(int) var damage : int = 1
 
 onready var on_screen = $VisibilityNotifier2D
 
-var sender : Node
 
 func _ready():
 	$Timer.connect("timeout", self, "kill")

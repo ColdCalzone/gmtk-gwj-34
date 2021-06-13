@@ -15,15 +15,25 @@ var invulnerable = false
 const ANIMATION_SPEED = 10
 var frame : float = 0.0
 
+var id_tracker : int = 0
+
 func _ready() -> void:
 	for turret in turrets:
 		if turret in get_tree().get_nodes_in_group("Player"):
 			turret.is_player = true
 			turret.bullet.speed = 700
 			turret.bullet.damage = 1
+			turret.turret_id = id_tracker
 			turret.set_as_toplevel(true)
 		else:
 			turrets.erase(turret)
+	Global.subscribe(self)
+
+func _save_data() -> void:
+	Global.set_data("player_pos", global_position)
+	Global.set_data("player_health", health)
+	Global.set_data("player_max_health", max_health)
+	Global.set_data("player_speed", speed)
 
 func damage(amount : int):
 	health -= amount

@@ -17,6 +17,19 @@ onready var sprite = $Sprite
 onready var timer = $Timer
 onready var parent = get_parent()
 
+var turret_id : int
+
+func _ready():
+	Global.subscribe(self)
+
+func _save_data() -> void:
+	Global.set_data("turret_%s_pos"%turret_id, global_position)
+	Global.set_data("turret_%s_rotation"%turret_id, rotation)
+	Global.set_data("turret_%s_health"%turret_id, health)
+	Global.set_data("turret_%s_max_health"%turret_id, max_health)
+	Global.set_data("turret_%s_bullet_speed"%turret_id, bullet.speed)
+	Global.set_data("turret_%s_bullet_damage"%turret_id, bullet.damage)
+
 func set_collision(value : bool):
 	is_player = value
 	if !is_player:
@@ -25,9 +38,6 @@ func set_collision(value : bool):
 	else:
 		# Or to hit enemies
 		bullet.set_collision_mask_bit(1, true)
-
-#func _ready():
-	#timer.connect("timeout", self, "shoot")
 
 func damage(amount : int):
 	health -= amount

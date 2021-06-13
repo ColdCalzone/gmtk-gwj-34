@@ -12,6 +12,8 @@ var enemy := {
 }
 var enemies := []
 
+var id_track : int = 0
+
 signal wave_complete
 signal all_waves_complete
 
@@ -29,9 +31,14 @@ func spawn_enemy(enemy_scene: PackedScene, position_: Vector2) -> void:
 	var enemy := enemy_scene.instance()
 	enemy.position = position_
 	
+	enemy.enemy_id = id_track
+	id_track += 1
+	
 	# Connect enemy death signal to `enemy_death` later
 	
 	enemies.append(enemy)
+	
+	enemy.connect("enemy_death", self, "enemy_death")
 	
 	add_child(enemy)
 
@@ -53,3 +60,10 @@ func enemy_death(enemy: KinematicBody2D) -> void:
 
 func _ready() -> void:
 	run_wave()
+	Global.subscribe(self)
+
+func _save_data() -> void:
+	Global.set_data("wave_manager_wave", wave_number)
+	Global.set_data("wave_manager_waves", waves)
+	Global.set_data("wave_manager_enemy_ids", id_track)
+	Global.set_data("wave_manager_enemies", enemies)
