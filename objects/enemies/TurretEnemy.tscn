@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://objects/Turret.tscn" type="PackedScene" id=1]
-[ext_resource path="res://icon.png" type="Texture" id=2]
+[ext_resource path="res://assets/sprites/turret_enemy.png" type="Texture" id=2]
 [ext_resource path="res://objects/enemies/TurretEnemy.gd" type="Script" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
@@ -10,11 +10,13 @@ extents = Vector2( 32, 32 )
 [node name="TurretEnemy" type="KinematicBody2D" groups=[
 "Enemy",
 ]]
-collision_layer = 2
+collision_layer = 524290
 script = ExtResource( 3 )
 
 [node name="Sprite" type="Sprite" parent="."]
+scale = Vector2( 4, 4 )
 texture = ExtResource( 2 )
+hframes = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )
@@ -23,7 +25,7 @@ shape = SubResource( 1 )
 "Enemy",
 ] instance=ExtResource( 1 )]
 position = Vector2( 120, 0 )
-collision_layer = 2
+collision_layer = 524290
 collision_mask = 1
 is_player = false
 health = 10

@@ -9,9 +9,9 @@ onready var timer = $Timer
 
 onready var player : Node
 
-enum STATE {SEARCHING, LOCKED}
+enum STATE {SEARCHING_LEFT, SEARCHING_RIGHT, LOCKED}
 
-var state = STATE.SEARCHING
+var state = STATE.SEARCHING_LEFT
 
 var target : Node = null
 
@@ -30,9 +30,23 @@ func ready():
 		if not thing in get_tree().get_nodes_in_group("Turret"):
 			player = thing
 
+func _process(delta):
+	match state:
+		STATE.SEARCHING_LEFT:
+			frame += delta * ANIMATION_SPEED
+			if frame >= 2:
+				state = STATE.SEARCHING_RIGHT
+		STATE.SEARCHING_RIGHT:
+			frame -= delta * ANIMATION_SPEED
+			if frame <= 0:
+				state = STATE.SEARCHING_LEFT
+		STATE.LOCKED:
+			frame = 3
+	sprite.frame = int(frame)
+
 func _physics_process(delta : float) -> void:
 	match state:
-		STATE.SEARCHING: 
+		STATE.SEARCHING_LEFT, STATE.SEARCHING_RIGHT:
 			if !target:
 				target = get_target()
 			else:
@@ -40,7 +54,8 @@ func _physics_process(delta : float) -> void:
 		STATE.LOCKED:
 			var collision = move_and_collide(calculate_movement(delta))
 			if collision:
-				collision.get_collider().damage(damage)
+				if collision.get_collider().get_collision_mask_bit(0) == true:
+					collision.get_collider().damage(damage)
 			if timer.is_stopped():
 				timer.start()
 				turret.shoot()
@@ -60,7 +75,7 @@ func get_target():
 	sprite.rotation = lerp_angle(sprite.rotation, global_position.angle_to_point(player.global_position), 0.2)
 	angle = wrapf(angle, 0, 6.28)
 	sprite.rotation = wrapf(sprite.rotation, 0, 6.28)
-	if abs(angle - sprite.rotation) < 0.2:
+	if abs(angle - sprite.rotation) < 0.4:
 		state = STATE.LOCKED
 		return player
 	return null

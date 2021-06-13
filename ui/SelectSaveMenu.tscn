@@ -68,3 +68,4 @@ __meta__ = {
 }
 
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/NewSaveButton" to="." method="_on_NewSaveButton_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/DeleteSaveButton" to="." method="_on_DeleteSaveButton_pressed"]

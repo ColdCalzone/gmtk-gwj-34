@@ -100,6 +100,16 @@ margin_bottom = 40.0
 
 [node name="OptionsMenu" parent="PauseContainer/Popups/OptionsContainer" instance=ExtResource( 2 )]
 
+[node name="MenuTransition" type="ColorRect" parent="PauseContainer"]
+visible = false
+margin_right = 1024.0
+margin_bottom = 600.0
+mouse_filter = 1
+color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [connection signal="pressed" from="PauseContainer/LeftPanel/MainContainer/ResumeButton" to="." method="_on_ResumeButton_pressed"]
 [connection signal="pressed" from="PauseContainer/LeftPanel/MainContainer/SaveButton" to="." method="_on_SaveButton_pressed"]
 [connection signal="pressed" from="PauseContainer/LeftPanel/MainContainer/OptionsButton" to="." method="_on_OptionsButton_pressed"]

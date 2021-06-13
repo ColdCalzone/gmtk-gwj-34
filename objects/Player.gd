@@ -10,6 +10,8 @@ export var max_health : int = 20
 onready var turrets = get_tree().get_nodes_in_group("Turret")
 
 onready var sprite = $Sprite
+onready var iframes = $Timer
+var invulnerable = false
 const ANIMATION_SPEED = 10
 var frame : float = 0.0
 
@@ -25,8 +27,24 @@ func _ready() -> void:
 
 func damage(amount : int):
 	health -= amount
+	iframes.start()
 
 func _physics_process(delta : float) -> void:
+	if !iframes.is_stopped():
+		sprite.modulate.a = 0.3
+		set_collision_layer_bit(0, false)
+		for turret in turrets:
+			set_collision_layer_bit(0, false)
+			turret.sprite.modulate.a = 0.3
+		invulnerable = true
+	elif invulnerable:
+		sprite.modulate.a = 1
+		set_collision_layer_bit(0, true)
+		for turret in turrets:
+			turret.set_collision_layer_bit(0, true)
+			turret.sprite.modulate.a = 1
+		invulnerable = false
+	
 	var direction = Vector2.ZERO
 	if Input.is_action_pressed("move_right") : direction.x += 1
 	if Input.is_action_pressed("move_left") : direction.x -= 1
