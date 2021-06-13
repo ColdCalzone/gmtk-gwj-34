@@ -15,12 +15,20 @@ export(int) var max_health : int = 80
 onready var tween = $Tween
 onready var sprite = $Sprite
 onready var timer = $Timer
+# Mounted to the Sprite because rotation go brrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr
+onready var audio = $Sprite/AudioStreamPlayer2D
+var player_sound : AudioStream = preload("res://assets/sfx/raw/player_shot.wav")
+var slow_enemy_sound : AudioStream = preload("res://assets/sfx/raw/slower_fire_enemy.wav")
 onready var parent = get_parent()
 
 var turret_id : int
 
 func _ready():
 	Global.subscribe(self)
+	if is_player:
+		audio.set_stream(player_sound)
+	else:
+		audio.set_stream(slow_enemy_sound)
 
 func _save_data() -> void:
 	Global.set_data("turret_%s_pos"%turret_id, global_position)
@@ -38,6 +46,7 @@ func set_collision(value : bool):
 	else:
 		# Or to hit enemies
 		bullet.set_collision_mask_bit(1, true)
+
 
 func damage(amount : int):
 	health -= amount
@@ -72,3 +81,4 @@ func shoot():
 	bullet.rotation = rotation
 	bullet.position = global_position
 	get_tree().get_root().add_child(bullet.duplicate())
+	audio.play()

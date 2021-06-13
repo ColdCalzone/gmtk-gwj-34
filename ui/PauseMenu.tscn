@@ -96,8 +96,10 @@ anchor_left = 0.1
 anchor_top = 0.1
 anchor_right = 0.9
 anchor_bottom = 0.9
-margin_right = 40.0
-margin_bottom = 40.0
+margin_left = -102.4
+margin_top = -60.0
+margin_right = -62.4
+margin_bottom = -20.0
 
 [node name="OptionsMenu" parent="PauseContainer/Popups/OptionsContainer" instance=ExtResource( 2 )]
 

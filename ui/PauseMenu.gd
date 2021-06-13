@@ -36,8 +36,11 @@ func close_menu() -> void:
 	
 	yield(tween, "tween_all_completed")
 	
+	
 	menu_transition.hide()
 	pause_container.hide()
+	# Lazy.
+	_on_CloseButton_pressed()
 	get_tree().paused = false
 
 

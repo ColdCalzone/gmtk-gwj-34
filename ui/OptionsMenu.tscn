@@ -1,8 +1,122 @@
-[gd_scene format=2]
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://assets/sprites/settings/volume_speaker.png" type="Texture" id=1]
+[ext_resource path="res://assets/sprites/settings/volume_sound.png" type="Texture" id=2]
+[ext_resource path="res://assets/sprites/settings/fullscreen.png" type="Texture" id=3]
+[ext_resource path="res://ui/OptionsMenu.gd" type="Script" id=4]
 
 [node name="OptionsMenu" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+mouse_filter = 2
+script = ExtResource( 4 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+margin_right = 341.0
+margin_bottom = 200.0
+rect_scale = Vector2( 3, 3 )
+mouse_filter = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
+margin_left = 63.0
+margin_top = 76.0
+margin_right = 278.0
+margin_bottom = 124.0
+custom_constants/separation = 16
+
+[node name="SFX" type="HBoxContainer" parent="CenterContainer/VBoxContainer"]
+margin_right = 215.0
+margin_bottom = 16.0
+rect_min_size = Vector2( 210, 0 )
+rect_pivot_offset = Vector2( 105, 8 )
+custom_constants/separation = 39
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="CenterContainer/VBoxContainer/SFX"]
+margin_top = 1.0
+margin_right = 26.0
+margin_bottom = 15.0
+text = "SFX:"
+
+[node name="Speaker" type="Sprite" parent="CenterContainer/VBoxContainer/SFX"]
+position = Vector2( 33.6667, 0 )
+texture = ExtResource( 1 )
+centered = false
+
+[node name="Sound" type="Sprite" parent="CenterContainer/VBoxContainer/SFX"]
+position = Vector2( 47, 0 )
+texture = ExtResource( 2 )
+centered = false
+hframes = 5
+
+[node name="SFX" type="HSlider" parent="CenterContainer/VBoxContainer/SFX"]
+margin_left = 65.0
+margin_right = 215.0
+margin_bottom = 16.0
+rect_min_size = Vector2( 150, 0 )
+input_pass_on_modal_close_click = false
+max_value = 1.0
+step = 0.01
+tick_count = 5
+ticks_on_borders = true
+
+[node name="MUS" type="HBoxContainer" parent="CenterContainer/VBoxContainer"]
+margin_top = 32.0
+margin_right = 215.0
+margin_bottom = 48.0
+rect_min_size = Vector2( 210, 0 )
+rect_pivot_offset = Vector2( 107, 8 )
+custom_constants/separation = 32
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="CenterContainer/VBoxContainer/MUS"]
+margin_top = 1.0
+margin_right = 33.0
+margin_bottom = 15.0
+text = "MUS:"
+
+[node name="Speaker" type="Sprite" parent="CenterContainer/VBoxContainer/MUS"]
+position = Vector2( 33.6667, 0 )
+texture = ExtResource( 1 )
+centered = false
+
+[node name="Sound" type="Sprite" parent="CenterContainer/VBoxContainer/MUS"]
+position = Vector2( 47, 0 )
+texture = ExtResource( 2 )
+centered = false
+hframes = 5
+
+[node name="MUS" type="HSlider" parent="CenterContainer/VBoxContainer/MUS"]
+margin_left = 65.0
+margin_right = 215.0
+margin_bottom = 16.0
+rect_min_size = Vector2( 150, 0 )
+input_pass_on_modal_close_click = false
+max_value = 1.0
+step = 0.01
+tick_count = 5
+ticks_on_borders = true
+
+[node name="Fullscreen" type="Button" parent="."]
+margin_left = 940.0
+margin_right = 968.0
+margin_bottom = 22.0
+rect_scale = Vector2( 3, 3 )
+icon = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[connection signal="value_changed" from="CenterContainer/VBoxContainer/SFX/SFX" to="." method="_on_SFX_value_changed"]
+[connection signal="value_changed" from="CenterContainer/VBoxContainer/MUS/MUS" to="." method="_on_MUS_value_changed"]
+[connection signal="pressed" from="Fullscreen" to="." method="_on_Fullscreen_pressed"]

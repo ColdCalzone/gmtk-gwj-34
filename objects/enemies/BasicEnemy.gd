@@ -22,12 +22,13 @@ func _physics_process(delta : float) -> void:
 		var movement = calculate_movement(delta)
 		var collision = move_and_collide(movement)
 		if collision:
-			collision.get_collider().damage(damage)
+			if collision.get_collider().get_collision_mask_bit(0) == true:
+				collision.get_collider().damage(damage)
 	if health <= 0:
 		var player_health = get_parent().get_parent().player_health
 		var turret_health = get_parent().get_parent().turrets_health
-		var value = int(((player_health.max_value + turret_health.max_value) / (turret_health.value + player_health.value)) * 100)
-		if randi() % value >= 3:
+		var value = int(((player_health.max_value + turret_health.max_value) / (turret_health.value + player_health.value)) * 5)
+		if (randi() % value) >= 5 and value > 1:
 			health_pack.global_position = global_position
 			get_parent().add_child(health_pack)
 		queue_free() 
