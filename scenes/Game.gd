@@ -1,7 +1,7 @@
 extends Node2D
 
-onready var player_health = $Control/PlayerHealth
-onready var turrets_health = $Control/TurretsHealth
+onready var player_health = $Ui/Control/PlayerHealth
+onready var turrets_health = $Ui/Control/TurretsHealth
 onready var player = $Player
 onready var turrets = get_tree().get_nodes_in_group("Turret")
 

@@ -46,61 +46,6 @@ color_ramp = SubResource( 1 )
 [node name="Camera2D" type="Camera2D" parent="."]
 current = true
 
-[node name="Control" type="Control" parent="."]
-margin_left = -512.0
-margin_top = -300.53
-margin_right = 512.0
-margin_bottom = 299.47
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="PlayerIcon" type="TextureRect" parent="Control"]
-margin_left = 8.0
-margin_right = 71.0
-margin_bottom = 15.0
-rect_scale = Vector2( 4, 4 )
-texture = ExtResource( 7 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="PlayerHealth" type="TextureProgress" parent="Control"]
-margin_left = 8.0
-margin_right = 71.0
-margin_bottom = 15.0
-rect_scale = Vector2( 4, 4 )
-value = 100.0
-texture_under = ExtResource( 10 )
-texture_over = ExtResource( 8 )
-texture_progress = ExtResource( 11 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="TurretIcon" type="TextureRect" parent="Control"]
-margin_top = 16.0
-margin_right = 63.0
-margin_bottom = 31.0
-rect_scale = Vector2( 4, 4 )
-texture = ExtResource( 5 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="TurretsHealth" type="TextureProgress" parent="Control"]
-margin_top = 16.0
-margin_right = 63.0
-margin_bottom = 31.0
-rect_scale = Vector2( 4, 4 )
-max_value = 0.0
-texture_under = ExtResource( 1 )
-texture_over = ExtResource( 9 )
-texture_progress = ExtResource( 6 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
 [node name="EnemyWaveManager" parent="." instance=ExtResource( 12 )]
 waves = [ 0 ]
 
@@ -135,3 +80,58 @@ collision_mask = 524288
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Wall4"]
 shape = SubResource( 3 )
+
+[node name="Ui" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="Ui"]
+margin_right = 1024.0
+margin_bottom = 600.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PlayerIcon" type="TextureRect" parent="Ui/Control"]
+margin_left = 8.0
+margin_right = 71.0
+margin_bottom = 15.0
+rect_scale = Vector2( 4, 4 )
+texture = ExtResource( 7 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PlayerHealth" type="TextureProgress" parent="Ui/Control"]
+margin_left = 8.0
+margin_right = 71.0
+margin_bottom = 15.0
+rect_scale = Vector2( 4, 4 )
+value = 100.0
+texture_under = ExtResource( 10 )
+texture_over = ExtResource( 8 )
+texture_progress = ExtResource( 11 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TurretIcon" type="TextureRect" parent="Ui/Control"]
+margin_top = 16.0
+margin_right = 63.0
+margin_bottom = 31.0
+rect_scale = Vector2( 4, 4 )
+texture = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TurretsHealth" type="TextureProgress" parent="Ui/Control"]
+margin_top = 16.0
+margin_right = 63.0
+margin_bottom = 31.0
+rect_scale = Vector2( 4, 4 )
+max_value = 0.0
+texture_under = ExtResource( 1 )
+texture_over = ExtResource( 9 )
+texture_progress = ExtResource( 6 )
+__meta__ = {
+"_edit_use_anchors_": false
+}

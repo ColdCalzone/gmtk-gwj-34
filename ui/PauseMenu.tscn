@@ -5,6 +5,7 @@
 
 [node name="PauseMenu" type="CanvasLayer"]
 pause_mode = 2
+layer = 2
 script = ExtResource( 3 )
 
 [node name="PauseContainer" type="Control" parent="."]

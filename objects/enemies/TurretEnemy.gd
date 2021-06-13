@@ -63,7 +63,7 @@ func _physics_process(delta : float) -> void:
 		health_pack.global_position = global_position
 		get_parent().add_child(health_pack)
 		queue_free() 
-	var collision = move_and_collide(Vector2.ZERO)
+	turret.position = ((turret.position - position).normalized() * 120)
 
 func get_target():
 	if !player:
