@@ -29,12 +29,6 @@ func load_config():
 		mus.value = config.get_value("sound", "mus_volume", 80)
 		fullscreen.icon = unfullscreen_icon if config.get_value("graphics", "fullscreen", false) else fullscreen_icon
 
-func save_config():
-	config.set_value("sound", "mus_volume", mus.value)
-	config.set_value("sound", "sfx_volume", sfx.value)
-	config.set_value("graphics", "fullscreen", fullscreen.pressed)
-	config.save(CONFIG_PATH)
-
 func _on_Fullscreen_pressed():
 	var new_state = !OS.window_fullscreen
 	if !new_state:
@@ -42,7 +36,7 @@ func _on_Fullscreen_pressed():
 	OS.set_window_fullscreen(new_state)
 	config.set_value("graphics", "fullscreen", new_state)
 	fullscreen.icon = unfullscreen_icon if new_state else fullscreen_icon
-	save_config()
+	config.save(CONFIG_PATH)
 	fullscreen.release_focus()
 
 
@@ -50,7 +44,7 @@ func _on_SFX_value_changed(value : float):
 	config.set_value("sound", "sfx_volume", value)
 	sfx_image.frame = [value == 0, value > 0 and value < 0.3, value >= 0.3 and value < 0.6, value >= 0.6 and value < 0.9, value >= 0.9].find(true)
 	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("SFX"), linear2db(value))
-	save_config()
+	config.save(CONFIG_PATH)
 	sfx.release_focus()
 
 
@@ -58,6 +52,6 @@ func _on_MUS_value_changed(value : float):
 	config.set_value("sound", "mus_volume", value)
 	mus_image.frame = [value == 0, value > 0 and value < 0.3, value >= 0.3 and value < 0.6, value >= 0.6 and value < 0.9, value >= 0.9].find(true)
 	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("MUS"), linear2db(value))
-	save_config()
+	config.save(CONFIG_PATH)
 	sfx.release_focus()
 

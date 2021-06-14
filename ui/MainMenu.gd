@@ -6,7 +6,12 @@ onready var main_container := $LeftPanel/MainContainer
 onready var popups := $Popups
 onready var save_container := $Popups/SaveContainer
 onready var options_container := $Popups/OptionsContainer
+onready var fade_in := $ColorRect
 
+
+func _ready() -> void:
+	tween.interpolate_property(fade_in, "color:a", 1.0, 0.0, 0.5)
+	tween.start()
 
 
 func _on_PlayButton_pressed() -> void:

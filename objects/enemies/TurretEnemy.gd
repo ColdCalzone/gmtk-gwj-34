@@ -54,7 +54,7 @@ func _physics_process(delta : float) -> void:
 		STATE.LOCKED:
 			var collision = move_and_collide(calculate_movement(delta))
 			if collision:
-				if collision.get_collider().get_collision_mask_bit(0) == true:
+				if collision.get_collider().get_collision_layer_bit(0) == true:
 					collision.get_collider().damage(damage)
 			if timer.is_stopped():
 				timer.start()

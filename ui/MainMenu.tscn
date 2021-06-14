@@ -165,6 +165,12 @@ stream = ExtResource( 6 )
 autoplay = true
 bus = "MUS"
 
+[node name="ColorRect" type="ColorRect" parent="."]
+margin_right = 1024.0
+margin_bottom = 600.0
+mouse_filter = 2
+color = Color( 0, 0, 0, 0 )
+
 [connection signal="pressed" from="LeftPanel/MainContainer/PlayButton" to="." method="_on_PlayButton_pressed"]
 [connection signal="pressed" from="LeftPanel/MainContainer/OptionsButton" to="." method="_on_OptionsButton_pressed"]
 [connection signal="pressed" from="LeftPanel/MainContainer/QuitButton" to="." method="_on_QuitButton_pressed"]

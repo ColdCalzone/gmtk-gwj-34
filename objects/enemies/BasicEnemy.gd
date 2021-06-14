@@ -22,7 +22,7 @@ func _physics_process(delta : float) -> void:
 		var movement = calculate_movement(delta)
 		var collision = move_and_collide(movement)
 		if collision:
-			if collision.get_collider().get_collision_mask_bit(0) == true:
+			if collision.get_collider().get_collision_layer_bit(0) == true:
 				collision.get_collider().damage(damage)
 	if health <= 0:
 		var player_health = get_parent().get_parent().player_health

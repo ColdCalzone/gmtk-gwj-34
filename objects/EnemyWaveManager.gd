@@ -44,7 +44,7 @@ func run_wave() -> void:
 		WaveTypes.RANDOM:
 			wave_number -= 1
 			for x in randi() % 10:
-				spawn_enemy(enemy.basic if randi() % 6 > 1 else enemy.turret, Vector2(range(-280, 280)[randi() % 700], range(-280, 280)[randi() % 700]))
+				spawn_enemy(enemy.basic if randi() % 6 > 1 else enemy.turret, Vector2(range(-280, 280)[randi() % 400], range(-280, 280)[randi() % 400]))
 
 
 
