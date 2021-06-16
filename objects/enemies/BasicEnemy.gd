@@ -1,5 +1,7 @@
 extends Enemy
 
+class_name BasicEnemy
+
 onready var health_pack = preload("res://objects/HealthPack.tscn").instance()
 
 onready var sprite = $Sprite
@@ -17,6 +19,15 @@ func _ready():
 
 func _physics_process(delta : float) -> void:
 	if target == null:
+		var collision = move_and_collide(Vector2.ZERO)
+		if collision:
+			if collision.get_collider().get_collision_layer_bit(0) == true:
+				var body = collision.get_collider()
+				if not body in get_tree().get_nodes_in_group("Turret"):
+					state = STATE.LOCKING
+					target = body
+					return
+				body.damage(damage)
 		target = get_target()
 	else:
 		var movement = calculate_movement(delta)
@@ -54,6 +65,8 @@ func _process(delta):
 	sprite.frame = int(frame)
 
 func get_target():
+	if get_tree().get_nodes_in_group("Player").size() < 1:
+		return null
 	var player = get_tree().get_nodes_in_group("Player")[0]
 	var angle = position.angle_to_point(player.position) - 1.57
 	rotation = lerp_angle(rotation, angle, 0.01)# * delta

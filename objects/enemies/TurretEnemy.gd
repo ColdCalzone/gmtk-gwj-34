@@ -1,5 +1,7 @@
 extends Enemy
 
+class_name TurretEnemy
+
 onready var health_pack = preload("res://objects/HealthPack.tscn").instance()
 
 
@@ -17,13 +19,14 @@ var target : Node = null
 
 func ready():
 	speed = 100
-	health = 3
-	max_health = 3
+	health = 5
+	max_health = 5
 	#damage = 1
-	turret.bullet.damage = 1
-	turret.health = 10
-	turret.max_health = 10
+	turret.bullet.damage = 2
+	turret.health = 20
+	turret.max_health = 20
 	turret.bullet.speed = 400
+	yield(get_tree().create_timer(randf() + 1.0), "timeout")
 	turret.is_player = false
 	turret.set_as_toplevel(true)
 	for thing in get_tree().get_nodes_in_group("Player"):
@@ -77,10 +80,10 @@ func get_target():
 				player = thing
 		return null
 	var angle = position.angle_to_point(player.position) #- 1.57
-	sprite.rotation = lerp_angle(sprite.rotation, global_position.angle_to_point(player.global_position), 0.2)
+	sprite.rotation = lerp_angle(sprite.rotation, global_position.angle_to_point(player.global_position), 0.05)
 	angle = wrapf(angle, 0, 6.28)
 	sprite.rotation = wrapf(sprite.rotation, 0, 6.28)
-	if abs(angle - sprite.rotation) < 0.4:
+	if abs(angle - sprite.rotation) < 0.2:
 		state = STATE.LOCKED
 		return player
 	return null

@@ -1,9 +1,11 @@
 extends Node
 
 
-enum WaveTypes {BASIC, TWO_SHOOTER, HORDE_CHARGERS, SNIPER_CHARGERS, RANDOM}
+var current_level : String = "Level"
 
-export(Array, WaveTypes) var waves
+var WaveTypes : Dictionary
+
+var waves : Array
 
 var wave_number := 0
 var enemy := {
@@ -17,34 +19,10 @@ var id_track : int = 0
 signal wave_complete
 signal all_waves_complete
 
-# HOW TO GET MORE CONTENT: RNG BABEY!!!!
-
 func run_wave() -> void:
-	match waves[wave_number]:
-		WaveTypes.BASIC:
-			spawn_enemy(enemy.basic, Vector2(200, -50))
-			spawn_enemy(enemy.basic, Vector2(-200, -50))
-		WaveTypes.TWO_SHOOTER:
-			spawn_enemy(enemy.turret, Vector2(-200, 0))
-			spawn_enemy(enemy.turret, Vector2(200, 0))
-		WaveTypes.HORDE_CHARGERS:
-			spawn_enemy(enemy.basic, Vector2(280, 280))
-			spawn_enemy(enemy.basic, Vector2(0, 280))
-			spawn_enemy(enemy.basic, Vector2(-280, 280))
-			spawn_enemy(enemy.basic, Vector2(280, -280))
-			spawn_enemy(enemy.basic, Vector2(0, -280))
-			spawn_enemy(enemy.basic, Vector2(-280, -280))
-			spawn_enemy(enemy.basic, Vector2(-280, 0))
-			spawn_enemy(enemy.basic, Vector2(280, 0))
-		WaveTypes.SNIPER_CHARGERS:
-			spawn_enemy(enemy.turret, Vector2(0, -280))
-			spawn_enemy(enemy.basic, Vector2(280, 280))
-			spawn_enemy(enemy.basic, Vector2(0, 280))
-			spawn_enemy(enemy.basic, Vector2(-280, 280))
-		WaveTypes.RANDOM:
-			wave_number -= 1
-			for x in randi() % 10:
-				spawn_enemy(enemy.basic if randi() % 6 > 1 else enemy.turret, Vector2(range(-280, 280)[randi() % 400], range(-280, 280)[randi() % 400]))
+	for wave_enemy in WaveTypes[waves[wave_number]]:
+		spawn_enemy(enemy[wave_enemy[1]], Vector2(wave_enemy[0].x, wave_enemy[0].y))
+	
 
 
 
@@ -82,6 +60,14 @@ func enemy_death(enemy: KinematicBody2D) -> void:
 
 func _ready() -> void:
 	Global.subscribe(self)
+	var file = File.new()
+	var tracker : int = 0
+	if !file.open("res://waves.tres", File.READ):
+		var content = JSON.parse(file.get_as_text()).result
+		WaveTypes = content
+	if !file.open("res://wavesets/%s.tres" % current_level, File.READ):
+		var content = JSON.parse(file.get_as_text()).result
+		waves = content
 
 func _save_data() -> void:
 	Global.set_data("wave_manager_wave", wave_number)

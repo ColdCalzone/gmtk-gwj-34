@@ -10,7 +10,7 @@ export var max_health : int = 20
 onready var turrets = get_tree().get_nodes_in_group("Turret")
 
 onready var sprite = $Sprite
-onready var iframes = $Timer
+onready var iframes = $IFrames
 var invulnerable = false
 const ANIMATION_SPEED = 10
 var frame : float = 0.0
@@ -23,6 +23,7 @@ func _ready() -> void:
 			turret.is_player = true
 			turret.bullet.speed = 700
 			turret.bullet.damage = 1
+			turret.rotation_speed = 0.8
 			turret.turret_id = id_tracker
 			turret.set_as_toplevel(true)
 		else:

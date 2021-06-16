@@ -19,14 +19,17 @@ func _ready():
 	particles.emitting = true
 	yield(tween, "tween_all_completed")
 	audio.play()
-	yield(get_tree().create_timer(0.22), "timeout")
-	audio.stop()
-	yield(get_tree().create_timer(0.5), "timeout")
+	yield(audio, "finished")
+	yield(get_tree().create_timer(0.2), "timeout")
 	tween.interpolate_property(label, "modulate:a", 1.0, 0.0, 0.75)
 	tween.interpolate_property(particles, "modulate:a", 1.0, 0.0, 0.75)
 	tween.start()
 	yield(tween, "tween_all_completed")
 	get_tree().change_scene("res://ui/MainMenu.tscn")
 
-func _process(delta):
+func _input(event):
+	if event is InputEventKey:
+		get_tree().change_scene("res://ui/MainMenu.tscn")
+
+func  _process(delta):
 	mat.set_shader_param("time", mat.get_shader_param("time") + delta)

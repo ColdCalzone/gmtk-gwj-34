@@ -7,7 +7,7 @@ export(bool) var is_player = true setget set_collision
 const ANIMATION_SPEED = 5
 var frame : float = 0.0
 
-export(float) var rotation_speed : float = 4
+export(float) var rotation_speed : float = 10
 
 export(int) var health : int = 80
 export(int) var max_health : int = 80
@@ -15,20 +15,14 @@ export(int) var max_health : int = 80
 onready var tween = $Tween
 onready var sprite = $Sprite
 onready var timer = $Timer
-# Mounted to the Sprite because rotation go brrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr
+# Mounted to the Sprite because rotation go brrrrrrrrrrrrrrrrrrrrrrRrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrR
 onready var audio = $Sprite/AudioStreamPlayer2D
-var player_sound : AudioStream = preload("res://assets/sfx/raw/player_shot.wav")
-var slow_enemy_sound : AudioStream = preload("res://assets/sfx/raw/slower_fire_enemy.wav")
 onready var parent = get_parent()
 
 var turret_id : int
 
 func _ready():
 	Global.subscribe(self)
-	if is_player:
-		audio.set_stream(player_sound)
-	else:
-		audio.set_stream(slow_enemy_sound)
 
 func _save_data() -> void:
 	Global.set_data("turret_%s_pos"%turret_id, global_position)
@@ -50,6 +44,8 @@ func set_collision(value : bool):
 
 func damage(amount : int):
 	health -= amount
+	if is_player:
+		parent.iframes.start()
 
 func _physics_process(delta):
 	var closest_enemy_pos : Vector2 = Vector2.ZERO
@@ -57,10 +53,10 @@ func _physics_process(delta):
 		if global_position.distance_to(enemy.global_position) < global_position.distance_to(closest_enemy_pos) or closest_enemy_pos == Vector2.ZERO:
 			closest_enemy_pos = enemy.global_position
 	
-	var angle = global_position.angle_to_point(closest_enemy_pos) - 1.57
-	rotation = lerp_angle(rotation, angle, 0.15)# * delta
 	if is_player:
-		rotation += (Input.get_action_strength("aim_right") - Input.get_action_strength("aim_left")) * rotation_speed * delta
+		rotation += (Input.get_action_strength("aim_right") - Input.get_action_strength("aim_left")) * delta
+	var angle = global_position.angle_to_point(closest_enemy_pos) - 1.57
+	rotation = lerp_angle(rotation, angle, rotation_speed/500)# * delta
 	angle = wrapf(angle, 0, 6.28)
 	rotation = wrapf(rotation, 0, 6.28)
 	

@@ -14,8 +14,8 @@ func damage(amount):
 	pass
 
 func _physics_process(delta : float) -> void:
-	if !on_screen.is_on_screen():
-		kill()
+	#if !on_screen.is_on_screen():
+		#kill()
 	var collision = move_and_collide(Vector2.UP.rotated(rotation) * speed * delta)
 	if collision:
 		collision.get_collider().damage(damage)

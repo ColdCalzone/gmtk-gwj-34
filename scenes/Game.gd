@@ -11,6 +11,7 @@ onready var enemy_manage = $EnemyWaveManager
 onready var turrets = get_tree().get_nodes_in_group("Turret")
 
 func _ready():
+	
 	set_physics_process(false)
 	$CPUParticles2D.emitting = true
 	tween.interpolate_property(color, "modulate:a", 1.0, 0.0, 0.1)

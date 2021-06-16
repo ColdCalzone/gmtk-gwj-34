@@ -12,9 +12,7 @@ extents = Vector2( 32, 32 )
 collision_layer = 524290
 script = ExtResource( 2 )
 
-[node name="Sprite" type="Sprite" parent="." groups=[
-"Enemy",
-]]
+[node name="Sprite" type="Sprite" parent="."]
 scale = Vector2( 4, 4 )
 texture = ExtResource( 1 )
 hframes = 9

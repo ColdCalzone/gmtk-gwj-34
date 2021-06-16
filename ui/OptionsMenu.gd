@@ -32,7 +32,7 @@ func load_config():
 func _on_Fullscreen_pressed():
 	var new_state = !OS.window_fullscreen
 	if !new_state:
-		OS.set_window_size(Vector2(1024, 600))
+		OS.set_window_size(Vector2(1024, 576))
 	OS.set_window_fullscreen(new_state)
 	config.set_value("graphics", "fullscreen", new_state)
 	fullscreen.icon = unfullscreen_icon if new_state else fullscreen_icon

@@ -8,6 +8,8 @@ func _ready():
 func heal(body):
 	if not body is Player: return
 	body.health += randi() % 5 + 3
+	body.health = min(body.health, body.max_health)
 	for turret in body.turrets:
-		turret.health +=  randi() % 10 + 10
+		turret.health += randi() % 10 + 10
+		turret.health = min(turret.health, turret.max_health)
 	queue_free()
