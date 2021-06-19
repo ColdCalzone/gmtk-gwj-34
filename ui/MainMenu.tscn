@@ -62,19 +62,19 @@ __meta__ = {
 
 [node name="PlayButton" type="Button" parent="LeftPanel/MainContainer"]
 margin_right = 204.0
-margin_bottom = 20.0
+margin_bottom = 48.0
 text = "Play"
 
 [node name="OptionsButton" type="Button" parent="LeftPanel/MainContainer"]
-margin_top = 24.0
+margin_top = 52.0
 margin_right = 204.0
-margin_bottom = 44.0
+margin_bottom = 100.0
 text = "Options"
 
 [node name="QuitButton" type="Button" parent="LeftPanel/MainContainer"]
-margin_top = 48.0
+margin_top = 104.0
 margin_right = 204.0
-margin_bottom = 68.0
+margin_bottom = 152.0
 text = "Quit"
 
 [node name="TitleImage" type="TextureRect" parent="."]
@@ -104,13 +104,13 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = -77.8
-margin_top = -65.0
+margin_left = -216.8
+margin_top = -131.6
 margin_right = 0.200012
+margin_bottom = 0.399963
 grow_horizontal = 0
 grow_vertical = 0
 text = "Game by
-
 ColdCalzone
 Isaac Astell"
 __meta__ = {
@@ -170,6 +170,9 @@ margin_right = 1024.0
 margin_bottom = 600.0
 mouse_filter = 2
 color = Color( 0, 0, 0, 0 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [connection signal="pressed" from="LeftPanel/MainContainer/PlayButton" to="." method="_on_PlayButton_pressed"]
 [connection signal="pressed" from="LeftPanel/MainContainer/OptionsButton" to="." method="_on_OptionsButton_pressed"]
