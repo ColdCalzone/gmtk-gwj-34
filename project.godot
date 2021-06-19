@@ -9,11 +9,6 @@
 config_version=4
 
 _global_script_classes=[ {
-"base": "Enemy",
-"class": "BasicEnemy",
-"language": "GDScript",
-"path": "res://objects/enemies/BasicEnemy.gd"
-}, {
 "base": "KinematicBody2D",
 "class": "Enemy",
 "language": "GDScript",
@@ -24,15 +19,20 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://objects/Player.gd"
 }, {
+"base": "TextureButton",
+"class": "SelectLevelButton",
+"language": "GDScript",
+"path": "res://ui/custom_widgets/SelectLevelButton.gd"
+}, {
 "base": "Enemy",
 "class": "TurretEnemy",
 "language": "GDScript",
 "path": "res://objects/enemies/TurretEnemy.gd"
 } ]
 _global_script_class_icons={
-"BasicEnemy": "",
 "Enemy": "",
 "Player": "",
+"SelectLevelButton": "",
 "TurretEnemy": ""
 }
 

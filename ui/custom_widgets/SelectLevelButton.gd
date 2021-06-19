@@ -1,4 +1,5 @@
 extends TextureButton
+class_name SelectLevelButton
 
 
 onready var beat_texture := preload("res://assets/ui/level_button_beat.png")
